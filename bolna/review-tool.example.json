@@ -1,0 +1,32 @@
+{
+  "name": "review_service_report",
+  "description": "Call after each technician service report or correction. Send only the latest technician utterance verbatim as report_text. The backend returns missing evidence, contradictions, readiness, and the next question. Never claim completion without this tool result.",
+  "pre_call_message": "I am checking what is still missing from the report.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "job_id": {
+        "type": "string",
+        "description": "The fixed private call-routing key supplied in the job_id context variable. It is not the spoken site ID. Do not invent, change or read it aloud."
+      },
+      "report_text": {
+        "type": "string",
+        "description": "Latest technician utterance verbatim. Preserve negations, corrections, IDs, measured values, and units. Do not summarize, translate, or fabricate evidence."
+      }
+    },
+    "required": ["job_id", "report_text"]
+  },
+  "key": "custom_task",
+  "value": {
+    "method": "POST",
+    "url": "https://YOUR_PUBLIC_BACKEND/api/bolna/report",
+    "param": {
+      "job_id": "%(job_id)s",
+      "report_text": "%(report_text)s"
+    },
+    "api_token": "Bearer YOUR_BOLNA_TOOL_TOKEN",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

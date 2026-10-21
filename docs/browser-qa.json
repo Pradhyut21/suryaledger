@@ -1,0 +1,20 @@
+{
+  "passed": 12,
+  "checks": [
+    "Dashboard renders",
+    "Replay captures six fields and reaches review",
+    "Post-repair observation links to exact source quote",
+    "Explicit review survives reload",
+    "JSON export includes evidence, source turns, sample label and reviewer",
+    "Conflicting repair statements hold review",
+    "Evidence ledger exposes retained revision history",
+    "Unconfigured Bolna call opens honest setup state",
+    "Field guide describes prototype boundaries",
+    "Wrong-site report is held against selected visit",
+    "390px mobile layout has no horizontal overflow",
+    "No browser runtime errors"
+  ],
+  "errors": [],
+  "browser": "Chrome/153.0.8010.12",
+  "at": "2026-10-21T16:28:51.092Z"
+}

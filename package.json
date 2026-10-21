@@ -1,0 +1,30 @@
+{
+  "name": "suryaledger",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Voice-led solar service records with traceable evidence and human review.",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "start": "node --env-file-if-exists=.env server/index.mjs",
+    "build": "vite build",
+    "test": "node --test tests/*.test.mjs",
+    "evaluate": "node scripts/evaluate.mjs",
+    "preview": "vite --host 127.0.0.1",
+    "bolna:config": "node --env-file-if-exists=.env scripts/prepare-bolna.mjs"
+  },
+  "dependencies": {
+    "@bolna/web-call": "^3.0.1",
+    "@fontsource/dm-sans": "^5.3.0",
+    "@fontsource/manrope": "^5.3.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "vite": "^7.3.0"
+  }
+}

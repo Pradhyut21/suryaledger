@@ -1,0 +1,29 @@
+# Evidence service
+
+`engine.mjs` exports `analyzeReport(turns, {expectedSiteId}?)` and `FIELD_DEFINITIONS`. It is a deliberately conservative, rule-based reference parser. It accepts explicit English and a small set of Romanized Hindi phrases. It does not claim general multilingual understanding or measured extraction accuracy on real calls. When supplied, `expectedSiteId` must be canonical (e.g. `BLR-042`); a different reported site holds the report and preserves the original source. An expectation never fills a missing observation.
+
+Each turn must be `{id, role: "technician" | "assistant", text, at?}`. IDs are unique alphanumeric strings, with hyphens and underscores allowed. Only technician turns can supply observations. Each captured field includes its source `turnId` and an exact transcript `quote`. A correction preserves the old fact in `history` with `superseded: true`.
+
+Required observations: site ID (e.g. `BLR-042`), equipment ID (`INV-204`), original issue, completed work, an explicitly measured post-repair output in W/kW, and explicit customer acknowledgement. IDs also accept explicit spoken forms `BLR dash 042`, `BLR 042`, and `INV dash 204`; values normalize to hyphenated IDs while quotes retain the original words. Word-spelled digits and arbitrary ASR variants are unsupported. Nameplate output, forecasts, future actions, uncertainty, negative test reports, and absent customers do not fill the relevant field. Contradictory IDs, denial of previously claimed completed work, or unresolved present-condition claims hold the report. Explicit corrections can resolve these conflicts.
+
+The only successful result is `ready_for_review`. It means the report contains required observations, not that work occurred, measurements are true, equipment is safe, warranty is valid, or a supervisor approved it. Evidence is reported speech, not independent verification. A zero measured output is captured as an observation; an explicit unresolved fault still holds the job. Human review must assess measured output against equipment conditions and expected production.
+
+## HTTP routes
+
+- `GET /api/health`: reports whether server credentials are configured; never returns secrets.
+- `POST /api/analyze`, JSON `{turns, expectedSiteId?}`: stateless evidence gate, response is the report object. The app supplies the selected visit's site ID.
+- `POST /api/bolna/session`, JSON `{user_data: {job_id, site_id}}`: mints a short-lived Bolna WebRTC session using server-only `BOLNA_API_KEY` and `BOLNA_AGENT_ID`; forwards only these two context values. `job_id` is a fresh, unique routing key per call (e.g. `BLR-042_<uuid>`); `site_id` is the assigned site (e.g. `BLR-042`). After successful provider minting, the server retains their correlation for one hour. Provider session fields are returned unchanged for the official SDK. Reusing an issued routing key is rejected.
+- `POST /api/bolna/report`, JSON `{job_id, report_text}`: authenticated with `Authorization: Bearer <BOLNA_TOOL_TOKEN>`. Requires a successfully issued, unexpired session routing key. Appends a technician observation and returns the gate result and clarification instruction to the agent. The expected site comes from server session metadata, never a tool-supplied expectation.
+- `GET /api/jobs/:id/report`: local demo UI polling snapshot `{jobId, expectedSiteId, turns, report, updatedAt}`; use the unique live routing key as `id`. Returns 404 until the first report tool call. Entries live only in memory and disappear on restart. At most 100 live sessions/jobs are retained; issuing a new call cannot reuse a previous call's evidence.
+
+The report tool is intended to receive verbatim technician words in each call, not an AI-created summary, to avoid laundering generated claims into source evidence. Bolna tool arguments are still model-mediated; production must correlate to provider transcript events and verify spans against those events. This prototype labels them as technician-reported text and retains that limitation.
+
+## Running and deployment boundary
+
+`node server/index.mjs` serves built `dist/` and the API on `127.0.0.1:8787`. Root package scripts run the frontend and backend. Copy the root `.env.example` to `.env` locally, add your credentials, and restart. The API key never belongs in a Vite variable.
+
+The default is a single-user loopback demo. Browser requests from non-loopback origins are rejected unless `PUBLIC_ORIGIN` matches. Public ingress for Bolna callbacks must expose the authenticated report route over HTTPS. Do not publish this whole server as a multi-user service without authentication, per-user job authorization, durable encrypted storage, verified transcript-event provenance, retention controls, and an ingress access policy. The local polling route has no user authentication.
+
+There is no route for outbound telephone calls. Starting browser WebRTC requires the user's click and microphone permission. Requests are limited to 128 KiB; transcripts to 200 turns and 60,000 characters. Session minting has a per-address limit of 10/minute. Other API routes are limited to 120/minute. These are local demo safeguards, not production traffic management.
+
+Bolna reference: [official browser SDK](https://github.com/bolna-ai/web-call), [custom tool schema](https://www.bolna.ai/docs/tool-calling/custom-function-schema). Verified 21 October 2026.

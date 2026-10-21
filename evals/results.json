@@ -1,0 +1,309 @@
+{
+  "dataset": "SuryaLedger synthetic text regression set v1",
+  "total": 20,
+  "passed": 20,
+  "failed": 0,
+  "limitations": "Authored synthetic transcript cases, not independent user validation, real-call ASR accuracy, language coverage, safety accuracy, latency, or commercial evidence. The corpus is intentionally small and public.",
+  "results": [
+    {
+      "id": "complete-english",
+      "category": "complete",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "ready_for_review",
+      "expectedStatus": "ready_for_review"
+    },
+    {
+      "id": "missing-measurement",
+      "category": "missing",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "needs_evidence",
+      "expectedStatus": "needs_evidence"
+    },
+    {
+      "id": "missing-customer",
+      "category": "missing",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "needs_evidence",
+      "expectedStatus": "needs_evidence"
+    },
+    {
+      "id": "test-negation",
+      "category": "negation",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "needs_evidence",
+      "expectedStatus": "needs_evidence"
+    },
+    {
+      "id": "nameplate-is-not-test",
+      "category": "measurement",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "needs_evidence",
+      "expectedStatus": "needs_evidence"
+    },
+    {
+      "id": "expected-is-not-measured",
+      "category": "measurement",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "needs_evidence",
+      "expectedStatus": "needs_evidence"
+    },
+    {
+      "id": "future-work",
+      "category": "future",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "needs_evidence",
+      "expectedStatus": "needs_evidence"
+    },
+    {
+      "id": "equipment-conflict",
+      "category": "contradiction",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "hold",
+      "expectedStatus": "hold"
+    },
+    {
+      "id": "equipment-correction",
+      "category": "correction",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "ready_for_review",
+      "expectedStatus": "ready_for_review"
+    },
+    {
+      "id": "site-conflict",
+      "category": "contradiction",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "hold",
+      "expectedStatus": "hold"
+    },
+    {
+      "id": "still-broken",
+      "category": "unresolved",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "hold",
+      "expectedStatus": "hold"
+    },
+    {
+      "id": "present-condition-conflict",
+      "category": "contradiction",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "hold",
+      "expectedStatus": "hold"
+    },
+    {
+      "id": "test-correction",
+      "category": "correction",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "needs_evidence",
+      "expectedStatus": "needs_evidence"
+    },
+    {
+      "id": "romanized-hindi",
+      "category": "supported-code-switch",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "ready_for_review",
+      "expectedStatus": "ready_for_review"
+    },
+    {
+      "id": "assistant-hallucination",
+      "category": "provenance",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "needs_evidence",
+      "expectedStatus": "needs_evidence"
+    },
+    {
+      "id": "injection-cannot-close",
+      "category": "injection",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "needs_evidence",
+      "expectedStatus": "needs_evidence"
+    },
+    {
+      "id": "ambiguous-phrasing",
+      "category": "unsupported",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "needs_evidence",
+      "expectedStatus": "needs_evidence"
+    },
+    {
+      "id": "uncertain-reading",
+      "category": "uncertainty",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "needs_evidence",
+      "expectedStatus": "needs_evidence"
+    },
+    {
+      "id": "measured-watts",
+      "category": "measurement",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "ready_for_review",
+      "expectedStatus": "ready_for_review"
+    },
+    {
+      "id": "past-measurement",
+      "category": "measurement",
+      "passed": true,
+      "checks": {
+        "status": true,
+        "captured": true,
+        "missing": true,
+        "conflict": true,
+        "provenance": true,
+        "reviewBoundary": true
+      },
+      "actualStatus": "needs_evidence",
+      "expectedStatus": "needs_evidence"
+    }
+  ]
+}

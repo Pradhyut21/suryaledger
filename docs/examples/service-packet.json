@@ -1,0 +1,190 @@
+{
+  "product": "SuryaLedger",
+  "schemaVersion": 1,
+  "exportedAt": "2026-10-21T16:28:45.041Z",
+  "sampleData": true,
+  "job": {
+    "id": "BLR-042",
+    "name": "Meera Residency",
+    "area": "Whitefield, Bengaluru",
+    "size": "5.0 kWp",
+    "tech": "Arjun Rao",
+    "initials": "AR",
+    "asset": "INV-204",
+    "issue": "Low generation",
+    "time": "10:40 AM"
+  },
+  "turns": [
+    {
+      "id": "beb92768-51ca-4d42-912b-2b05c8c5506e",
+      "role": "technician",
+      "text": "Site BLR-042. Equipment INV-204. I observed low generation. I cleaned the panels.",
+      "at": "2026-10-21T16:28:36.910Z"
+    },
+    {
+      "id": "05da5ff5-c108-474d-be17-0f21d72a3015",
+      "role": "assistant",
+      "text": "After the repair, what output did you actually measure? Include the number and W or kW. If you did not test, say so.",
+      "at": "2026-10-21T16:28:36.957Z"
+    },
+    {
+      "id": "0b2b583a-2518-44e4-8880-c69847981a29",
+      "role": "technician",
+      "text": "The job is done. I have not tested it yet.",
+      "at": "2026-10-21T16:28:37.912Z"
+    },
+    {
+      "id": "1f2cd438-a307-4783-8af1-80b1f8b29244",
+      "role": "assistant",
+      "text": "After the repair, what output did you actually measure? Include the number and W or kW. If you did not test, say so.",
+      "at": "2026-10-21T16:28:37.964Z"
+    },
+    {
+      "id": "e65ab9f8-9f60-49c9-bd98-19ba9d4cd611",
+      "role": "technician",
+      "text": "After the repair, I tested the output at 4.2 kW.",
+      "at": "2026-10-21T16:28:38.921Z"
+    },
+    {
+      "id": "9a4e3e80-d0bc-4bd2-a7a4-0b3662d3e066",
+      "role": "assistant",
+      "text": "Did the customer explicitly acknowledge this service report? Please state what they acknowledged, or say they are unavailable.",
+      "at": "2026-10-21T16:28:38.962Z"
+    },
+    {
+      "id": "2f6e0ef7-4937-45a2-a690-754762ad5bd0",
+      "role": "technician",
+      "text": "The customer confirmed the work and acknowledged the service.",
+      "at": "2026-10-21T16:28:39.921Z"
+    }
+  ],
+  "result": {
+    "version": "1.0.0",
+    "status": "ready_for_review",
+    "fields": {
+      "site_id": {
+        "value": "BLR-042",
+        "turnId": "beb92768-51ca-4d42-912b-2b05c8c5506e",
+        "quote": "Site BLR-042.",
+        "at": "2026-10-21T16:28:36.910Z"
+      },
+      "equipment_id": {
+        "value": "INV-204",
+        "turnId": "beb92768-51ca-4d42-912b-2b05c8c5506e",
+        "quote": "Equipment INV-204.",
+        "at": "2026-10-21T16:28:36.910Z"
+      },
+      "issue": {
+        "value": "I observed low generation.",
+        "turnId": "beb92768-51ca-4d42-912b-2b05c8c5506e",
+        "quote": "I observed low generation.",
+        "at": "2026-10-21T16:28:36.910Z"
+      },
+      "action": {
+        "value": "I cleaned the panels.",
+        "turnId": "beb92768-51ca-4d42-912b-2b05c8c5506e",
+        "quote": "I cleaned the panels.",
+        "at": "2026-10-21T16:28:36.910Z"
+      },
+      "post_repair_test": {
+        "value": "4.2 kW measured",
+        "turnId": "e65ab9f8-9f60-49c9-bd98-19ba9d4cd611",
+        "quote": "After the repair, I tested the output at 4.2 kW.",
+        "at": "2026-10-21T16:28:38.921Z"
+      },
+      "customer_acknowledgement": {
+        "value": "The customer confirmed the work and acknowledged the service.",
+        "turnId": "2f6e0ef7-4937-45a2-a690-754762ad5bd0",
+        "quote": "The customer confirmed the work and acknowledged the service.",
+        "at": "2026-10-21T16:28:39.921Z"
+      }
+    },
+    "missing": [],
+    "conflicts": [],
+    "history": [
+      {
+        "field": "site_id",
+        "value": "BLR-042",
+        "turnId": "beb92768-51ca-4d42-912b-2b05c8c5506e",
+        "quote": "Site BLR-042.",
+        "at": "2026-10-21T16:28:36.910Z",
+        "superseded": false,
+        "correction": false
+      },
+      {
+        "field": "equipment_id",
+        "value": "INV-204",
+        "turnId": "beb92768-51ca-4d42-912b-2b05c8c5506e",
+        "quote": "Equipment INV-204.",
+        "at": "2026-10-21T16:28:36.910Z",
+        "superseded": false,
+        "correction": false
+      },
+      {
+        "field": "issue",
+        "value": "I observed low generation.",
+        "turnId": "beb92768-51ca-4d42-912b-2b05c8c5506e",
+        "quote": "I observed low generation.",
+        "at": "2026-10-21T16:28:36.910Z",
+        "superseded": false,
+        "correction": false
+      },
+      {
+        "field": "action",
+        "value": "I cleaned the panels.",
+        "turnId": "beb92768-51ca-4d42-912b-2b05c8c5506e",
+        "quote": "I cleaned the panels.",
+        "at": "2026-10-21T16:28:36.910Z",
+        "superseded": false,
+        "correction": false
+      },
+      {
+        "field": "post_repair_test",
+        "value": null,
+        "turnId": "0b2b583a-2518-44e4-8880-c69847981a29",
+        "quote": "I have not tested it yet.",
+        "superseded": false,
+        "correction": true
+      },
+      {
+        "field": "post_repair_test",
+        "value": "4.2 kW measured",
+        "turnId": "e65ab9f8-9f60-49c9-bd98-19ba9d4cd611",
+        "quote": "After the repair, I tested the output at 4.2 kW.",
+        "at": "2026-10-21T16:28:38.921Z",
+        "superseded": false,
+        "correction": false
+      },
+      {
+        "field": "customer_acknowledgement",
+        "value": "The customer confirmed the work and acknowledged the service.",
+        "turnId": "2f6e0ef7-4937-45a2-a690-754762ad5bd0",
+        "quote": "The customer confirmed the work and acknowledged the service.",
+        "at": "2026-10-21T16:28:39.921Z",
+        "superseded": false,
+        "correction": false
+      }
+    ],
+    "warnings": [],
+    "nextQuestion": "Please read back the report and send it to a supervisor. This is a completeness check, not a safety certificate.",
+    "expectedSiteId": "BLR-042",
+    "readyForReview": true,
+    "requiresSupervisorReview": true,
+    "completeness": {
+      "captured": 6,
+      "required": 6
+    },
+    "summary": "Required report observations captured. Supervisor review is still required.",
+    "limitations": [
+      "Rule-based reference parser; unsupported phrasing may require clarification.",
+      "Technician-reported observations are not independent measurements.",
+      "No electrical safety, compliance, warranty, or repair certification."
+    ]
+  },
+  "supervisorReview": {
+    "name": "Demo reviewer",
+    "at": "2026-10-21T16:28:43.076Z",
+    "confirmedReadback": true
+  },
+  "notice": "Synthetic demo job. Statements are technician-reported; this record does not certify physical repair or electrical safety."
+}
