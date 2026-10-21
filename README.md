@@ -5,6 +5,8 @@
 
 <p align="center">React · Node.js · Bolna Web Call · MIT<br/><strong>Working replay prototype · synthetic data · live Bolna connection deferred</strong></p>
 
+<p align="center"><a href="https://github.com/Pradhyut21/suryaledger/actions/workflows/ci.yml"><img src="https://github.com/Pradhyut21/suryaledger/actions/workflows/ci.yml/badge.svg" alt="Validate prototype" /></a></p>
+
 ![SuryaLedger service desk](docs/assets/dashboard.png)
 
 A technician says the visit is finished. The service record still needs an equipment ID, the work performed, an observed post-repair output, and customer acknowledgement. SuryaLedger collects that handover in conversation, links supported fields to exact source text, and asks for what is missing. Conflicting statements hold the report until they are explicitly corrected.
@@ -114,7 +116,7 @@ Voice service reports and field-service software already exist. The research cov
 
 ## Repository and publication
 
-The source is prepared for [Pradhyut21/suryaledger](https://github.com/Pradhyut21/suryaledger) with a reproducible lockfile, tests, CI, evaluation fixtures, license and contribution notes. A hosted app, accepted public pitch-video link and competition submission remain separate steps. Do not put `.env`, `.bolna/` or real customer reports into a public repository.
+The source is published at [Pradhyut21/suryaledger](https://github.com/Pradhyut21/suryaledger) with a reproducible lockfile, tests, CI, evaluation fixtures, license and contribution notes. A hosted app, accepted public pitch-video link and competition submission remain separate steps. Do not put `.env`, `.bolna/` or real customer reports into a public repository.
 
 Clone the public source:
 

@@ -29,10 +29,10 @@ The inspected submission form asks for a Google Drive or Luma pitch link, access
 | Idea, primary-source landscape and validation plan | Included in RESEARCH.md |
 | Founder script, demo beats and judge answers | Included in PITCH.md |
 | Source and documentation | Local deliverables; consult README for exact implemented state |
-| Automated checks | Run the documented commands and retain actual output; do not infer speech/live-call quality from text tests |
-| Pitch video | Check the final delivered output file, play it end to end and confirm all mode labels remain accurate |
+| Automated checks | 52 automated tests, 20 synthetic evaluation cases and 12 browser checks pass; GitHub Actions also passed for the source upload |
+| Pitch video | Finished 24-second launch film included, with synthetic-mode labeling; 90-second founder script included separately |
 | Real Bolna conversation | Requires credentials, agent setup, protected reachable backend and a successful end-to-end test |
-| Public repository or deployed demo URL | Must exist and be accessible; external publication/authentication status is unknown |
+| Public repository or deployed demo URL | Source published at Pradhyut21/suryaledger; no hosted app deployment claimed |
 | Public accepted pitch-host URL | Upload and verify sharing; a local MP4 alone is not a submission URL |
 | Registration email/team details | Must be supplied and checked by the builder |
 | Customer validation | Not performed; no pilot, adoption, savings or accuracy claim to add without evidence |
