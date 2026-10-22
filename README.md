@@ -3,7 +3,7 @@
 <h1 align="center">SuryaLedger</h1>
 <p align="center"><strong>Service, on record.</strong><br/>A spoken solar-service handover, with source evidence and a separate human review.</p>
 
-<p align="center">React · Node.js · Bolna Web Call · MIT<br/><strong>Working replay prototype · synthetic data · live Bolna connection deferred</strong></p>
+<p align="center">React · Node.js · Bolna Web Call · MIT<br/><strong>Working replay prototype · synthetic data · Bolna connection and tool callback observed; full-report validation pending</strong></p>
 
 <p align="center"><a href="https://github.com/Pradhyut21/suryaledger/actions/workflows/ci.yml"><img src="https://github.com/Pradhyut21/suryaledger/actions/workflows/ci.yml/badge.svg" alt="Validate prototype" /></a></p>
 
@@ -52,13 +52,21 @@ To resolve the sample action conflict, submit `Correction, I reset the inverter.
 | Review | Readback of captured fields; a separate reviewer confirmation invalidated by a new note |
 | Handover | JSON packet with source turns and review; printable service record |
 | Draft storage | Browser localStorage; live tool snapshots are bounded, ephemeral server memory |
-| Live voice adapter | Official `@bolna/web-call`, server-minted session, token-protected report tool and fresh per-call routing |
+| Live voice adapter | Official `@bolna/web-call`, server-minted session, token-protected report tool and fresh per-call routing; an account-backed connection and callback have been observed |
 
 The domain engine is **rule-based**, not a general language model. Bolna supplies the optional conversational speech layer. This separation makes the supported gate inspectable; it does not establish broad language coverage or superior accuracy.
 
 ![Evidence-linked service record](docs/assets/report-ready.png)
 
-## Watch the launch film
+## Watch the product demonstration
+
+[![Watch the 2-minute-14-second narrated demo](docs/assets/submission-poster.jpg)](docs/assets/submission-demo.mp4)
+
+[Download the main demonstration](docs/assets/submission-demo.mp4) · [Seven-slide pitch PDF](docs/assets/SuryaLedger-Pitch.pdf) · [Editable PowerPoint](docs/assets/SuryaLedger-Pitch.pptx)
+
+The main film records the **actual app** with synthetic typed notes and a local synthetic narrator. It shows missing evidence, quoted source text, conflicting IDs and correction history, separate human review, and the real JSON export. It does not show a live Bolna call. [Script and captions](docs/DEMO-VIDEO.md).
+
+## Short launch teaser
 
 [![Watch the 24-second launch film](docs/assets/launch-poster.jpg)](docs/assets/launch.mp4)
 
@@ -66,12 +74,14 @@ The film uses synthetic service data and a reconstruction of the actual app inte
 
 ## Bolna connection
 
-The replay is finished independently of account setup. Live calls have **not** been verified with account credentials. To connect later:
+An **account-backed browser WebRTC connection and actual report-tool callback have been observed** with synthetic caller audio. Four bounded synthetic calls were inspected. The best populated five of six fields but included an incorrectly transcribed equipment ID; the latest connected but produced no report callback before the test stopped. No complete spoken handover passed. Spoken-ID normalization fixes pass the text regressions, while live reliability remains unresolved. See [`docs/LIVE-VALIDATION.md`](docs/LIVE-VALIDATION.md) for the failure, fix and exact scope.
+
+The caller audio was locally generated Windows TTS or Kokoro speech fed into a browser media stream, not a physical microphone or a customer. This establishes connection/tool transport, not field speech accuracy. To configure your own account:
 
 1. Copy `.env.example` to `.env` and set `BOLNA_API_KEY`, `BOLNA_AGENT_ID`, and a distinct `BOLNA_TOOL_TOKEN`.
 2. Create/configure the agent with [`bolna/system-prompt.md`](bolna/system-prompt.md).
 3. Follow [`docs/BOLNA.md`](docs/BOLNA.md) to expose a test HTTPS endpoint and add the report tool. `npm run bolna:config` generates a private, ignored import file after `BOLNA_PUBLIC_BASE_URL` is configured.
-4. Restart, use a synthetic job, and complete the documented real-call checks before calling the integration verified.
+4. Restart, use a synthetic job, and complete the documented full-report checks before claiming an end-to-end workflow result.
 
 The app never sends the account API key to the browser. Each call has a fresh routing ID tied server-side to its selected site. Tool text remains model-mediated: quote provenance is to that submitted text, not independently verified against a provider recording. Only a human reviews the draft.
 
@@ -101,7 +111,7 @@ npm run evaluate
 npm run build
 ```
 
-At delivery: **52 automated tests pass**, and **20/20 authored synthetic evaluation cases pass**. The evaluation includes negative tests, future intent, uncertain statements, historical/nameplate readings, denied repairs, inconsistent IDs, explicit corrections, ignored assistant turns, and attempted gate bypass. The HTTP tests cover input validation, request limits, assigned-site mismatch, session minting and tool authorization/correlation. See [`evals/results.json`](evals/results.json) and [`docs/VERIFICATION.md`](docs/VERIFICATION.md).
+As of 22 October 2026: **58 automated tests pass**, **25/25 authored synthetic evaluation cases pass**, and the previously recorded **12/12 browser workflow checks pass**. The evaluation includes negative tests, future intent, uncertain statements, historical/nameplate readings, denied repairs, inconsistent IDs, explicit corrections, spoken-digit identifiers and explicit spoken decimal readings. The HTTP tests cover input validation, request limits, assigned-site mismatch, session minting and tool authorization/correlation. See [`evals/results.json`](evals/results.json), [`docs/VERIFICATION.md`](docs/VERIFICATION.md) and [`docs/LIVE-VALIDATION.md`](docs/LIVE-VALIDATION.md).
 
 These are finite software checks. They are **not** a speech benchmark, field deployment, real-customer accuracy measurement, or claim of protection against arbitrary instructions.
 
@@ -116,7 +126,7 @@ Voice service reports and field-service software already exist. The research cov
 
 ## Repository and publication
 
-The source is published at [Pradhyut21/suryaledger](https://github.com/Pradhyut21/suryaledger) with a reproducible lockfile, tests, CI, evaluation fixtures, license and contribution notes. A hosted app, accepted public pitch-video link and competition submission remain separate steps. Do not put `.env`, `.bolna/` or real customer reports into a public repository.
+The source is published at [Pradhyut21/suryaledger](https://github.com/Pradhyut21/suryaledger) with a reproducible lockfile, tests, CI, evaluation fixtures, license and contribution notes. The main MP4, PDF and editable pitch are included above. A hosted app and competition submission are not claimed; the accepted Drive pitch link must have its public sharing checked separately. Do not put `.env`, `.bolna/` or real customer reports into a public repository.
 
 Clone the public source:
 

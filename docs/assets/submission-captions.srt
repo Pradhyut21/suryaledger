@@ -1,0 +1,43 @@
+1
+00:00:00,400 --> 00:00:09,680
+Solar service can finish before its paperwork does. SuryaLedger helps rooftop solar teams turn a technician's handover into a traceable record.
+
+2
+00:00:11,400 --> 00:00:19,016
+This is the actual app, using synthetic typed notes for a reproducible demo. No live Bolna call is being shown.
+
+3
+00:00:20,400 --> 00:00:30,341
+I enter the site, equipment, issue and completed work. Saying the job is done does not fill the missing test. The assistant asks for an observed output.
+
+4
+00:00:33,400 --> 00:00:43,640
+I report four point two kilowatts and customer acknowledgement. Six fields are captured. Clicking the observation reveals the exact submitted words behind it.
+
+5
+00:00:46,400 --> 00:00:57,344
+A different equipment ID creates a conflict. Review stays blocked, and both statements remain visible. An explicit correction resolves the ID while keeping its history.
+
+6
+00:00:59,400 --> 00:01:08,893
+The evidence ledger shows current and superseded statements. A reviewer reads the captured record, enters a name, and explicitly confirms review.
+
+7
+00:01:12,400 --> 00:01:22,363
+The JSON export contains the job, source turns, evidence and local review. It documents submitted statements, without proving a physical repair.
+
+8
+00:01:24,400 --> 00:01:35,792
+Optional Bolna speech is separate from the rule based gate. Keys stay server side. This walkthrough uses reproducible synthetic notes; live voice is configured separately.
+
+9
+00:01:37,400 --> 00:01:50,221
+Fifty eight automated tests, twenty five authored synthetic cases, and twelve browser checks pass. These test supported behavior and failure cases. They are not customer accuracy results.
+
+10
+00:01:51,400 --> 00:02:05,075
+The prototype supports limited English and Hinglish patterns, browser storage, and local reviewer confirmation. Next: three installer interviews and ten consented, de identified service reports.
+
+11
+00:02:06,400 --> 00:02:12,800
+SuryaLedger. Service, on record. We are looking for a rooftop solar team to pilot this handover.

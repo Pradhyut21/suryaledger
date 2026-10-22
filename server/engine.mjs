@@ -14,7 +14,7 @@ export const FIELD_DEFINITIONS = Object.freeze([
 
 const FIELD_KEYS = FIELD_DEFINITIONS.map((field) => field.key);
 const correctionPattern = /\b(correction|correcting|corrected|actually|i meant|not .{0,30} but|sahi id)\b/i;
-const uncertainPattern = /\b(maybe|perhaps|probably|possibly|might|guess|i think|not sure|unsure|expected|estimate[ds]?)\b/i;
+const uncertainPattern = /\b(maybe|perhaps|probably|possibly|might|may|guess|i think|not sure|unsure|expected|estimate[ds]?|about|around|approximately|roughly)\b/i;
 const futurePattern = /\b(will|going to|plan to|need to|should|would|to be|not yet)\b/i;
 const injectionPattern = /\b(ignore (?:all |the |previous )?(?:rules|instructions|checks)|mark (?:it |this |job )?(?:complete|closed)|override (?:the )?(?:rules|gate))\b/i;
 const negativeTestPattern = /\b(not tested|did(?: not|n't) test|no test|never tested|test (?:is |was )?(?:pending|not done)|without (?:a )?test|test nahi|nahi kiya|did(?: not|n't) measure|not measured)\b/i;
@@ -48,6 +48,51 @@ function sentences(text) {
   return text.split(/(?<=[.!?])\s+|\n+/).map((part) => part.trim()).filter(Boolean);
 }
 
+const SPOKEN_DIGITS = Object.freeze({ zero: '0', oh: '0', one: '1', two: '2', three: '3', four: '4', five: '5', six: '6', seven: '7', eight: '8', nine: '9' });
+const DIGIT_WORDS = Object.keys(SPOKEN_DIGITS).join('|');
+const OTHER_NUMBER_WORDS = 'ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|thousand|million';
+const AMBIGUOUS_ID_TAIL = new RegExp(`^(?:or|to|through|point|minus|negative|${OTHER_NUMBER_WORDS})\\b`, 'i');
+
+function spokenIdDigits(tail) {
+  let rest = tail.replace(/^\s*(?:(?:dash|hyphen)\b|[-–—])?\s*/i, '');
+  let digits = '';
+  const token = new RegExp(`^(\\d+|${DIGIT_WORDS})\\b`, 'i');
+  while (true) {
+    const match = rest.match(token);
+    if (!match) break;
+    digits += /^\d+$/.test(match[1]) ? match[1] : SPOKEN_DIGITS[match[1].toLowerCase()];
+    rest = rest.slice(match[0].length).replace(/^\s+/, '');
+  }
+  if (digits.length < 2 || digits.length > 8 || AMBIGUOUS_ID_TAIL.test(rest) || /^\.\d/.test(rest)) return null;
+  // "zero four two and five" is ambiguous; "zero four two and equipment..." is not.
+  if (new RegExp(`^and\\s+(?:\\d|${DIGIT_WORDS}|${OTHER_NUMBER_WORDS})\\b`, 'i').test(rest)) return null;
+  return digits;
+}
+
+function measuredOutput(quote) {
+  const wordNumber = `(?:${DIGIT_WORDS})(?:\\s+point\\s+(?:\\d+|${DIGIT_WORDS})(?:\\s+(?:\\d+|${DIGIT_WORDS}))*)?`;
+  const number = `(?:\\d+(?:\\.\\d+)?|${wordNumber})`;
+  const pattern = new RegExp(`\\b(${number})\\s*(k\\s*w|kilo\\s*watts?|watts?|w)\\b`, 'gi');
+  const values = [];
+  for (const match of quote.matchAll(pattern)) {
+    const before = quote.slice(0, match.index);
+    // Never extract a suffix from an unsupported or ambiguous number phrase.
+    if (new RegExp(`(?:\\b(?:${DIGIT_WORDS}|${OTHER_NUMBER_WORDS}|point|or|and|minus|negative|not)|[-−])\\s*$`, 'i').test(before)) continue;
+    if (/^\s*(?:or|to|through)\b/i.test(quote.slice(match.index + match[0].length))) continue;
+    let amount;
+    if (/^\d/.test(match[1])) amount = Number(match[1]);
+    else {
+      const parts = match[1].toLowerCase().split(/\s+point\s+/);
+      const whole = SPOKEN_DIGITS[parts[0]];
+      const fraction = parts[1]?.split(/\s+/).map((part) => /^\d+$/.test(part) ? part : SPOKEN_DIGITS[part]).join('');
+      amount = Number(fraction === undefined ? whole : `${whole}.${fraction}`);
+    }
+    if (Number.isFinite(amount) && amount >= 0 && amount <= 1000000) values.push(`${amount} ${/^k/i.test(match[2]) ? 'kW' : 'W'} measured`);
+  }
+  const unique = [...new Set(values)];
+  return unique.length === 1 ? unique[0] : null;
+}
+
 function idsFromQuote(quote, kind) {
   const equipment = kind === 'equipment_id';
   const patterns = equipment
@@ -64,7 +109,18 @@ function idsFromQuote(quote, kind) {
       candidates.push({ value: `${prefix}-${match[2].toUpperCase()}`, negated: /\b(?:not|isn't|wasn't)\s*$/i.test(leadingText) });
     }
   }
-  return candidates;
+  const spokenPattern = equipment
+    ? /\b((?:i\s+n\s+v)|(?:e\s+q)|(?:s\s+n)|INV|EQ|SN)(?=\s|-)/gi
+    : /\bsite(?:\s+(?:id|reference))?(?:\s+(?:is|was))?\s+(?:not\s+)?((?:[A-Z]\s+){1,4}[A-Z]|[A-Z]{2,5})(?=\s|-)/gi;
+  for (const match of quote.matchAll(spokenPattern)) {
+    const prefix = match[1].replace(/\s+/g, '').toUpperCase();
+    if (!equipment && ['INV', 'EQ', 'SN'].includes(prefix)) continue;
+    const digits = spokenIdDigits(quote.slice(match.index + match[0].length));
+    if (!digits) continue;
+    const leading = equipment ? quote.slice(0, match.index) : match[0].slice(0, match[0].lastIndexOf(match[1]));
+    candidates.push({ value: `${prefix}-${digits}`, negated: /\b(?:not|isn't|wasn't)\s*$/i.test(leading) });
+  }
+  return [...new Map(candidates.map((entry) => [`${entry.value}:${entry.negated}`, entry])).values()];
 }
 
 export function analyzeReport(input, { expectedSiteId } = {}) {
@@ -144,12 +200,11 @@ export function analyzeReport(input, { expectedSiteId } = {}) {
       if (hasAction && !future && !uncertain && !deniedAction && !stateOnly) record('action', quote, turn, quote, { correct, replace: true });
 
       const negativeTest = negativeTestPattern.test(quote);
-      const output = quote.match(/\b(\d+(?:\.\d+)?)\s*(k\s*w|watts?|w)\b/i);
+      const output = measuredOutput(quote);
       const testContext = /\b(post[- ]?repair|after (?:the )?(?:repair|work|fix|replacement)|measured|tested|test result|reading|abhi output)\b/i.test(quote);
       if (negativeTest) invalidate('post_repair_test', turn, quote);
       else if (output && testContext && !future && !uncertain && !/\b(before|initial|previous|rated|nameplate|capacity|maximum|specification|historical)\b/i.test(quote)) {
-        const amount = Number(output[1]);
-        if (Number.isFinite(amount) && amount >= 0 && amount <= 1000000) record('post_repair_test', `${amount} ${/^k/i.test(output[2]) ? 'kW' : 'W'} measured`, turn, quote, { correct });
+        record('post_repair_test', output, turn, quote, { correct });
       }
 
       if (negativeAckPattern.test(quote)) invalidate('customer_acknowledgement', turn, quote);

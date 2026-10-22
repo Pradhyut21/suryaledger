@@ -3,7 +3,7 @@
 ## Before submission
 
 1. Run the replay and rehearse the 90-second pitch. Show a missing test, a source quote, a conflicting statement and explicit review.
-2. Connect Bolna with a synthetic test agent and verify microphone denial, network loss, insufficient credits, wrong-site speech, corrections, tool failure and a late final callback. Record actual run IDs and failures. This step is deferred to the builder.
+2. Connect Bolna with a synthetic test agent and verify microphone denial, network loss, insufficient credits, wrong-site speech, corrections, tool failure and a late final callback. Record actual run IDs and failures. Account-backed connection/callback tests are recorded in LIVE-VALIDATION.md, but complete spoken-report reliability and the listed failure scenarios remain unverified.
 3. Interview three installer operators and two technicians. Collect ten consented, de-identified reports; compare a form, a plain summary and this workflow. Report raw counts and failures.
 4. Publish the source and pitch only after checking for secrets and personal data. Share the pitch through the accepted Drive/Docs or Luma host; verify anonymous link access.
 

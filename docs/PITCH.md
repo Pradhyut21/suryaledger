@@ -1,6 +1,6 @@
 # SuryaLedger: founder pitch and demo guide
 
-Prepared 21 October 2026. Working name. Read the current README and test results before recording. Never substitute the proposed pilot, account configuration or roadmap for implemented behavior.
+Updated 22 October 2026. Working name. Read the current README and test results before recording. An account-backed Bolna connection and actual report-tool callback have been observed with synthetic Windows TTS caller audio. Full-report live readiness validation is pending; see LIVE-VALIDATION.md. Never substitute the proposed pilot or a connected session for a completed service workflow.
 
 ## 90-second founder script
 
@@ -12,13 +12,13 @@ Prepared 21 October 2026. Working name. Read the current README and test results
 >
 > Now I add a conflicting equipment ID. The record goes on hold. The conflict stays visible until it is explicitly corrected. Once the required information is present, the record becomes ready for a separate human approval.
 >
-> This is a service-documentation prototype. Its parser supports defined English and limited Hinglish phrases. Browser dictation is available where supported; a Bolna live-call integration path is included and still needs an account-backed end-to-end test.
+> This is a service-documentation prototype with a limited rule parser. An account-backed Bolna connection and tool callback worked with synthetic caller audio; full-report live validation is still pending.
 >
 > Voice reports and field-service software already exist. Our focus is a narrow, inspectable solar closure workflow: what was said, what is missing and what still needs a human decision.
 >
 > Next, we will compare it with current reporting on real, consented installer examples. We are looking for one installer willing to evaluate ten visits with a supervisor.
 
-About 220 words; rehearse at a natural pace and allow pauses for the interface. If the live integration has subsequently been verified, replace its status sentence with the actual call result and date. Do not say “live” over replay footage.
+Rehearse at a natural pace and allow pauses for the interface. Update the status sentence only after inspecting the actual full-report result and date. Do not say “live” over replay footage or describe locally generated caller audio as a physical-microphone test.
 
 ## A strong 60–90 second screen demo
 
@@ -61,7 +61,7 @@ A small installer/service operator is the initial buyer hypothesis. We plan to t
 
 **How accurate is it?**
 
-We can show the current deterministic tests and their exact cases. Those are not a multilingual speech benchmark. Real-language recordings and live calls still need separate evaluation with raw counts and failures.
+The current checks pass 58 automated tests, 25 authored synthetic cases and the recorded 12 browser workflow checks. Those are not a multilingual speech benchmark. Four synthetic account-backed calls were inspected. The best populated 5/6 fields but included a wrong equipment ID; no complete, correct spoken handover passed. Real technician speech evaluation remains separate work.
 
 **What is your traction?**
 
@@ -69,7 +69,7 @@ The current evidence is a prototype, source code and synthetic scenarios. No cus
 
 **How does Bolna fit?**
 
-The intended live flow uses a backend-created browser session and an agent report tool. The backend returns the next clarification and document readiness. A valid account, agent configuration and reachable protected endpoint are required; state whether the real call has passed at presentation time.
+An account-backed browser session and actual agent report-tool callback have been observed. The backend returns the next clarification and document readiness. The four bounded synthetic tests used Windows TTS or Kokoro audio. Connection and callbacks worked in earlier tests, but no complete, correct spoken handover passed. A scoped normalization fix passes text regressions; live reliability remains unresolved. See LIVE-VALIDATION.md for exact scope.
 
 **What would you build next?**
 

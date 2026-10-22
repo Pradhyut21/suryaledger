@@ -245,3 +245,59 @@ test('assigned-site mismatch holds a complete report without fabricating a match
   assert.equal(corrected.status, 'ready_for_review');
   for (const malformed of [null, '', '../site', 'INV-204', 42]) assert.throws(() => analyzeReport([], { expectedSiteId: malformed }), InputError);
 });
+
+test('observed ASR digit words and spaced prefixes preserve leading zeros and exact source text', () => {
+  for (const [site, equipment] of [['blr dash zero four two', 'inv hyphen two zero four'], ['b l r zero four two', 'i n v dash two zero four'], ['b l r hyphen oh four two', 'i n v two 0 four']]) {
+    const text = `site ${site}. equipment ${equipment}.`;
+    const report = analyzeReport([t(text)], { expectedSiteId: 'BLR-042' });
+    assert.equal(report.fields.site_id.value, 'BLR-042');
+    assert.equal(report.fields.equipment_id.value, 'INV-204');
+    assert.ok(text.includes(report.fields.site_id.quote));
+    assert.ok(text.includes(report.fields.equipment_id.quote));
+  }
+});
+
+test('unsupported cardinal and alternative spoken ID numbers remain missing', () => {
+  for (const text of ['site blr dash zero forty two.', 'site b l r dash zero four two or zero four three.', 'site blr dash zero four two and five.', 'site blr dash zero.']) {
+    assert.equal(analyzeReport([t(text)]).fields.site_id, null);
+  }
+});
+
+test('negated and uncertain spoken identifiers do not fill evidence', () => {
+  for (const text of ['site is not b l r dash zero four two.', 'equipment is not i n v dash two zero four.', 'maybe site blr dash zero four two.', 'equipment is probably inv dash two zero four.']) {
+    const report = analyzeReport([t(text)]);
+    assert.equal(report.fields.site_id, null);
+    assert.equal(report.fields.equipment_id, null);
+  }
+});
+
+test('spoken correction resolves conflicting normalized IDs without losing history', () => {
+  const report = analyzeReport([t('equipment inv dash two zero five.'), t('Correction, equipment i n v dash two zero four.', 't2')]);
+  assert.equal(report.fields.equipment_id.value, 'INV-204');
+  assert.equal(report.conflicts.length, 0);
+  assert.ok(report.history.some((entry) => entry.field === 'equipment_id' && entry.value === 'INV-205' && entry.superseded));
+});
+
+test('spelled kilowatts and explicit spoken decimals normalize only in a test context', () => {
+  for (const [value, expected] of [['4.2 kilowatts', '4.2 kW measured'], ['four point two kilowatts', '4.2 kW measured'], ['four point two five kilowatts', '4.25 kW measured'], ['oh point two kilowatt', '0.2 kW measured']]) {
+    const text = `After the repair, I measured ${value}.`;
+    const fact = analyzeReport([t(text)]).fields.post_repair_test;
+    assert.equal(fact.value, expected);
+    assert.equal(fact.quote, text);
+  }
+  assert.equal(analyzeReport([t('The plant capacity is four point two kilowatts.')]).fields.post_repair_test, null);
+});
+
+test('spoken measurements preserve negation, uncertainty, future intent and ambiguous-number abstention', () => {
+  for (const text of [
+    'After repair, I did not measure four point two kilowatts.',
+    'Maybe I measured four point two kilowatts after repair.',
+    'I will measure four point two kilowatts after repair.',
+    'After repair, I measured four two kilowatts.',
+    'After repair, I measured twenty four kilowatts.',
+    'After repair, I measured four point twenty two kilowatts.',
+    'After repair, I measured minus four point two kilowatts.',
+    'After repair, I measured four point two kilowatts or five kilowatts.',
+    'After repair, I measured four point two and five kilowatts.',
+  ]) assert.equal(analyzeReport([t(text)]).fields.post_repair_test, null, text);
+});
